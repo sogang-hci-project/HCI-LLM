@@ -4,13 +4,12 @@ from getpass import getpass
 os.environ["OPENAI_API_KEY"] = "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"
 
 REPO_URL = "https://github.com/GovTechSG/developer.gov.sg"  # Source URL
-# DOCS_FOLDER = "docs"  # Folder to check out to
 DOCS_FOLDER = "hci"  # Folder to check out to
-# REPO_DOCUMENTS_PATH = "collections/_products/categories/devops/ship-hats"  # Set to "" to index the whole data folder
-REPO_DOCUMENTS_PATH = "siwon/"  # Set to "" to index the whole data folder
-DOCUMENT_BASE_URL = "https://www.developer.tech.gov.sg/products/categories/devops/ship-hats"  # Actual URL
+REPO_DOCUMENTS_PATH = "painting/"  # Set to "" to index the whole data folder
+DOCUMENT_BASE_URL = (
+    "https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%82%98%EB%A6%AC%EC%9E%90"  # Actual URL
+)
 DATA_STORE_DIR = "data_store"  # Folder to save/load the database
-
 
 import os
 import pathlib
@@ -31,9 +30,6 @@ max_chunk_overlap = 20
 repo_path = pathlib.Path(os.path.join(DOCS_FOLDER, REPO_DOCUMENTS_PATH))  # 두개 합쳐주는 역할
 document_files = list(repo_path.glob(name_filter))  # 모든 md 파일에 대한 경로를 가져옴
 
-# print('🔥repo_path🔥',repo_path)
-# print('🔥document_files🔥',document_files)
-
 
 def convert_path_to_doc_url(doc_path):
     # Convert from relative path to actual document url
@@ -52,18 +48,15 @@ documents = [
     for file in document_files
 ]
 
-# print(documents)
-
 
 text_splitter = CharacterTextSplitter(
     separator=separator, chunk_size=chunk_size_limit, chunk_overlap=max_chunk_overlap
 )
 split_docs = text_splitter.split_documents(documents)
-# print(split_docs)
 
 
-# import tiktoken
 # create a GPT-4 encoder instance
+# import tiktoken
 # enc = tiktoken.encoding_for_model("gpt-4")
 
 # total_word_count = sum(len(doc.page_content.split()) for doc in split_docs)
@@ -76,11 +69,11 @@ split_docs = text_splitter.split_documents(documents)
 
 # vector store 생성
 # Download the files `$DATA_STORE_DIR/index.faiss` and `$DATA_STORE_DIR/index.pkl` to local
+
 embeddings = OpenAIEmbeddings()
 vector_store = FAISS.from_documents(split_docs, embeddings)
 
 vector_store.save_local(DATA_STORE_DIR)
-
 
 # Upload the files `$DATA_STORE_DIR/index.faiss` and `$DATA_STORE_DIR/index.pkl` to local
 from langchain.embeddings.openai import OpenAIEmbeddings
@@ -143,6 +136,7 @@ def print_result(result):
     print(output_text)
 
 
-query = "What is SOGANG-hci?"
+# query = "What is Sogang-hci project?"
+query = "what technique was used in the monaliza?"
 result = chain(query)
 print_result(result)
