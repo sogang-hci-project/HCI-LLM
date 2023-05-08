@@ -1,8 +1,11 @@
 # Getting Started
 
-root 에서 가상환경 실행
+required
+python >= 3.8
+
+project root 
 ```bash
-source gptenv/bin/activate
+source venv/bin/activate
 ```
 
 종속성 설치
@@ -10,7 +13,7 @@ source gptenv/bin/activate
 pip install -r requirements.txt
 ```
 
-파일 실행
+환경 변수 추가 후 파일 실행
 ```
-python3 integrate.py
+python3 llm.py
 ```

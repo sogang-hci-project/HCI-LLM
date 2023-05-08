@@ -1,7 +1,9 @@
 import os
-from getpass import getpass
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = "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"
+load_dotenv()
+
+os.environ["OPENAI_API_KEY"] = os.getenv("OPEN_AI_API_KEY")
 
 REPO_URL = "https://github.com/GovTechSG/developer.gov.sg"  # Source URL
 DOCS_FOLDER = "hci"  # Folder to check out to
