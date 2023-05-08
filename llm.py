@@ -135,7 +135,7 @@ def print_result(result):
   ### All relevant sources:
   {' '.join(list(set([doc.metadata['source'] for doc in result['source_documents']])))}
   """
-    print(output_text)
+    return output_text
 
 
 # query = "What is Sogang-hci project?"
