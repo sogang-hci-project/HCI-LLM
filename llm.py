@@ -1,7 +1,9 @@
 import os
-from getpass import getpass
+from dotenv import load_dotenv
 
-os.environ["OPENAI_API_KEY"] = "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"
+load_dotenv()
+
+os.environ["OPENAI_API_KEY"] = os.getenv("OPEN_AI_API_KEY")
 
 REPO_URL = "https://github.com/GovTechSG/developer.gov.sg"  # Source URL
 DOCS_FOLDER = "hci"  # Folder to check out to
@@ -133,7 +135,7 @@ def print_result(result):
   ### All relevant sources:
   {' '.join(list(set([doc.metadata['source'] for doc in result['source_documents']])))}
   """
-    print(output_text)
+    return output_text
 
 
 # query = "What is Sogang-hci project?"
