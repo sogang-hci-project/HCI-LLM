@@ -20,7 +20,7 @@ class HelloWorld(Resource):
     def post(self):
         question = request.json.get("question")
         result = chain(question)
-        res = print_result(result)
+        res = print_result(result, question)
         return {"contents": res}
 
 

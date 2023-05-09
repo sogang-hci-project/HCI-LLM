@@ -17,3 +17,8 @@ pip install -r requirements.txt
 ```
 python3 llm.py
 ```
+
+배포
+```
+pm2 start app.py --interpreter python3
+```
