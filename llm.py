@@ -127,7 +127,7 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
 
 def print_result(result):
     output_text = f"""### Question:
-  {query}
+  {result}
   ### Answer:
   {result['answer']}
   ### Sources:
