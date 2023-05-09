@@ -125,9 +125,9 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
 )
 
 
-def print_result(result):
+def print_result(result, question):
     output_text = f"""### Question:
-  {result}
+  {question}
   ### Answer:
   {result['answer']}
   ### Sources:
@@ -139,6 +139,6 @@ def print_result(result):
 
 
 # query = "What is Sogang-hci project?"
-query = "what technique was used in the monaliza?"
-result = chain(query)
-print_result(result)
+# query = "what technique was used in the monaliza?"
+# result = chain(query)
+# print_result(result, query)
