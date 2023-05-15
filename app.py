@@ -12,15 +12,20 @@ def index():
     return "Hello, this is SOGANG HCI project"
 
 
-@api.route("/hello")
+@api.route("/talk")
 class HelloWorld(Resource):
     def get(self):  # GET 요청시 리턴 값에 해당 하는 dict를 JSON 형태로 반환
         return {"hello": "world!"}
 
     def post(self):
-        question = request.json.get("question")
-        result = chain(question)
-        res = print_result(result, question)
+        user = request.json.get("user")
+        header = request.json.get("header")
+        additional = header.get("additional")
+        end = header.get("end")
+        qna = header.get("qna")
+
+        result = chain(user)
+        res = print_result(result, user)
         return {"contents": res}
 
 

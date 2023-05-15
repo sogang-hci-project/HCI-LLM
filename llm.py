@@ -101,10 +101,12 @@ Take note of the sources and include them in the answer in the format: "SOURCES:
 If you don't know the answer, just say that "I don't know", don't try to make up an answer.
 ----------------
 {summaries}"""
+
 messages = [
     SystemMessagePromptTemplate.from_template(system_template),
     HumanMessagePromptTemplate.from_template("{question}"),
 ]
+
 prompt = ChatPromptTemplate.from_messages(messages)
 
 
@@ -113,9 +115,13 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
 
 chain_type_kwargs = {"prompt": prompt}
+
+
 llm = ChatOpenAI(
     model_name="gpt-3.5-turbo", temperature=0, max_tokens=256
 )  # Modify model_name if you have access to GPT-4
+
+
 chain = RetrievalQAWithSourcesChain.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -126,19 +132,25 @@ chain = RetrievalQAWithSourcesChain.from_chain_type(
 
 
 def print_result(result, question):
-    output_text = f"""### Question:
-  {question}
-  ### Answer:
-  {result['answer']}
-  ### Sources:
-  {result['sources']}
-  ### All relevant sources:
-  {' '.join(list(set([doc.metadata['source'] for doc in result['source_documents']])))}
-  """
-    return output_text
+    output_object = {
+        "question": question,
+        "answer": result["answer"],
+        "source": result["sources"],
+        "relevantSources": list(
+            set([doc.metadata["source"] for doc in result["source_documents"]])
+        ),
+    }
+    return output_object
 
 
-# query = "What is Sogang-hci project?"
-# query = "what technique was used in the monaliza?"
-# result = chain(query)
-# print_result(result, query)
+# def print_result(result, question):
+#     output_text = f"""### Question:
+#   {question}
+#   ### Answer:
+#   {result['answer']}
+#   ### Sources:
+#   {result['sources']}
+#   ### All relevant sources:
+#   {' '.join(list(set([doc.metadata['source'] for doc in result['source_documents']])))}
+#   """
+#     return output_text

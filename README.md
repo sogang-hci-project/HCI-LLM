@@ -10,12 +10,17 @@ source venv/bin/activate
 
 종속성 설치
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 환경 변수 추가 후 파일 실행
 ```
 python3 llm.py
+```
+
+로컬 실행
+```
+python3 app.py
 ```
 
 배포
